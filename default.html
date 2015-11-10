@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Plutoto Le Site des Plutotos</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="default.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css">
+<script src="bootstrap/js/bootstrap.js"></script>
+<link rel="stylesheet" href="default.css">
+<link rel="stylesheet" href="bootstrap3/css/bootstrap.css">
+</head>
+<body>
+
+<!--pour gérer facebook-->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!--nav permet de faire la barre de navigation du haut-->
+<!--navbar-fixed-top et sticky permet de la garder en haut lors du scroll-->
+<nav class="navbar navbar-inverse navbar-fixed-top " style="background:black">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="font-family:'lobster'; font-size: 17px;" >
+			<ul class="nav navbar-nav">
+				<li><a href="top.html">Les Nouveaux</a></li>
+				<li><a href="top.html">Les Anciens</a></li>
+				<li><a href="top.html">Les Tops</a></li>
+				<li><a href="top.html">Les Flops</a></li>
+				<li><a href="top.html">Randoms</a></li>
+				<li><a href="top.html">Vidéos</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="soumission.html">Soumettre</a></li>
+				<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contact<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="#">A propos</a></li>
+					<li><a href="#">Suggestion</a></li>
+					<li><a href="#">Moderation</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="#">Separated link</a></li>
+				</ul>
+				</li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+<div style="background-image: url(images/background.jpg); background-attachment: fixed;  width : 100%;">
+<div class="row">
+	<div class="col-md-3 text-center pagination-centered" style="background-attachment: fixed;">
+            <a class="twitter-timeline"  href="https://twitter.com/hashtag/Plutoto" data-width="300" data-widget-id="654351090713018368">#Plutoto Tweets</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</div>
+	<div class ="col-md-6">
+		<div class="jumbotron" style="background:#B6C0B6; margin-top : 70px; margin-bottom: 3px; font-family: lobster; font-style: italic;">
+		<div class="page-header">
+		  <h1>Plutoto<small>Les nouveaux</small></h1>
+		</div>
+		</div>
+
+		<div style=" text-align:center; padding-top: 5px; padding-bottom: 0px; margin: 0px; padding: 0px; ">
+			<ul class="pagination"   >
+				<li>
+				<a href="#" aria-label="Previous" >
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+				</li>
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+				<li>
+				<a href="#" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+				</li>
+			</ul>
+		</div>
+<div id="content_nsf">
+    <div id="vote_nsf" class="row">
+        <div class="col-xs-offset-0 col-sm-offset-1 col-md-offset-2 col-xs-4 col-sm-3 col-md-2">
+            <a class="button-vote" href="javascript:vote(4425, 0);">NSF <span class="count">1008</span></a>
+        </div>
+        <div class="col-sm-offset-1 col-md-offset-1 col-xs-4 col-sm-3 col-md-2">
+            <a class="button-vote" href="javascript:vote(4425, 1);">NULLE <span class="count">136</span></a>
+        </div>
+        <div class="col-sm-offset-1 col-md-offset-1 col-xs-4 col-sm-3 col-md-2">
+            <a class="button-vote" href="javascript:vote(4425, 2);">FAKE <span class="count">39</span></a>
+        </div>
+    </div>
+
+    <a href="http://www.nuitsansfolie.com/nsf/4425">
+        <div class="row" style="background: whitesmoke; padding-top: 10px;">
+            <div class="col-xs-2 col-sm-3 col-md-3" style="color: #ba3963;">
+                <strong>#4425</strong>
+            </div>
+            <div class="col-xs-10 col-sm-9 col-md-9" style="color: #ba3963; text-align: right;">
+                <i class="fa fa-calendar"></i> 09/11/2015 | <i class="fa fa-clock-o"></i> 13:11
+            </div>
+        </div>
+    </a>
+
+    <a href="http://www.nuitsansfolie.com/nsf/4425">
+        <div class="row" style="background: whitesmoke; color: #ba3963; padding: 10px 0 10px 0; line-height: normal;">
+            <div class="col-xs-12 col-sm-12 col-md-12" style="min-height: 50px;">Ce matin, je me réveille chez ma conquête de la veille. <br />
+Il dort encore et pour éviter un moment gênant je décide de partir discrètement. <br />
+<br />
+Ça aurait pu marcher si je n&#039;étais pas restée bloquée 4 heures dans son hall d&#039;entrée, condamnée à attendre qu&#039;il se réveille pour me délivrer. <br />
+<br />
+#NSF</div>
+        </div>
+    </a>
+
+        <div class="row content_nsf_comment_share">
+            <div class="col-xs-4">
+                <a href="http://www.nuitsansfolie.com/nsf/4425"><i class="fa fa-comments"></i> 8</a>
+            </div>
+
+                    <div class="col-xs-8 social_share">
+                <div class="pull-right twitter_share_area">
+                    <a target="_blank" title="Twitter" href="https://twitter.com/share?url=http://www.nuitsansfolie.com/nsf/4425&text=Ce matin, je me réveille chez ma conquête de la veille. 
+Il dort encore et pour éviter un moment gênant je décide de partir discrètement. 
+
+Ça aurait pu marcher si je n&#039;étais pas restée bloquée 4 heures dans son hall d&#039;entrée, condamnée à attendre qu&#039;il se réveille pour me délivrer. 
+
+#NSF" rel="nofollow"
+                       onclick="window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=700');return false;">
+                        <i class="fa fa-twitter"></i> Twitter</a>
+                </div>
+                <div class="pull-right facebook_share_area">
+                    <a target="_blank" title="Facebook" href="https://www.facebook.com/sharer.php?u=http://www.nuitsansfolie.com/nsf/4425&t=Ce matin, je me réveille chez ma conquête de la veille. 
+Il dort encore et pour éviter un moment gênant je décide de partir discrètement. 
+
+Ça aurait pu marcher si je n&#039;étais pas restée bloquée 4 heures dans son hall d&#039;entrée, condamnée à attendre qu&#039;il se réveille pour me délivrer. 
+
+#NSF" rel="nofollow"
+                       onclick="window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=700');return false;">
+                        <i class="fa fa-facebook-square"></i> Facebook</a>
+                </div>
+            </div>
+
+                </div>
+</div>
+		<div class="jumbotron" style="background:#E6E6E6; ">
+			<a href=#><div class="row">
+				<div class="col-md-12" style="color: Black; text-align:left ">
+					<p class="lead">#1</p>
+				</div>
+				<div class="col-md-8">
+					<p class="lead">Les filles sont arrivées plutôt tôt    <span class="glyphicon glyphicon-arrow-right"></span></p>
+				</div>
+				<div class="col-md-4">
+					<p class="lead">Plutoto</p>
+				</div>
+				<a href=#>
+					<div class="col-md-2">
+					<span class="glyphicon glyphicon-chevron-up"></span>
+					</div>
+				</a>
+				<a href=#>
+				<div class="col-md-2">
+					<span class="glyphicon glyphicon-chevron-down"></span>
+				</div>
+				</a>
+				<a href=#>
+				<div class="col-md-2">
+					<span class="glyphicon glyphicon-comment"></span>
+				</div>
+				</a>
+
+			</div>
+		</div></a>
+		<div class="jumbotron" style="background:#E6E6E6; ">
+			<a href=#><div class="row">
+				<div class="col-md-12" style="color: Black; text-align:left ">
+					<p class="lead">#1</p>
+				</div>
+				<div class="col-md-8">
+					<p class="lead">Les filles sont arrivées plutôt tôt    <span class="glyphicon glyphicon-arrow-right"></span></p>
+				</div>
+				<div class="col-md-4">
+					<p class="lead">Plutoto</p>
+				</div>
+				<a href=#>
+					<div class="col-md-2">
+					<span class="glyphicon glyphicon-chevron-up"></span>
+					</div>
+				</a>
+				<a href=#>
+				<div class="col-md-2">
+					<span class="glyphicon glyphicon-chevron-down"></span>
+				</div>
+				</a>
+				<a href=#>
+				<div class="col-md-2">
+					<span class="glyphicon glyphicon-comment"></span>
+				</div>
+				</a>
+
+			</div>
+		</div></a>
+		<div class="jumbotron" style="background:#E6E6E6; ">
+			<a href=#><div class="row">
+				<div class="col-md-12" style="color: Black; text-align:left ">
+					<p class="lead">#1</p>
+				</div>
+				<div class="col-md-8">
+					<p class="lead">Les filles sont arrivées plutôt tôt    <span class="glyphicon glyphicon-arrow-right"></span></p>
+				</div>
+				<div class="col-md-4">
+					<p class="lead">Plutoto</p>
+				</div>
+				<a href=#>
+					<div class="col-md-2">
+					<span class="glyphicon glyphicon-chevron-up"></span>
+					</div>
+				</a>
+				<a href=#>
+				<div class="col-md-2">
+					<span class="glyphicon glyphicon-chevron-down"></span>
+				</div>
+				</a>
+				<a href=#>
+				<div class="col-md-2">
+					<span class="glyphicon glyphicon-comment"></span>
+				</div>
+				</a>
+
+			</div>
+		</div></a>
+		<div class="jumbotron" style="background:#E6E6E6; ">
+			<a href=#><div class="row">
+				<div class="col-md-12" style="color: Black; text-align:left ">
+					<p class="lead">#1</p>
+				</div>
+				<div class="col-md-8">
+					<p class="lead">Les filles sont arrivées plutôt tôt    <span class="glyphicon glyphicon-arrow-right"></span></p>
+				</div>
+				<div class="col-md-4">
+					<p class="lead">Plutoto</p>
+				</div>
+				<a href=#>
+					<div class="col-md-2">
+					<span class="glyphicon glyphicon-chevron-up"></span>
+					</div>
+				</a>
+				<a href=#>
+				<div class="col-md-2">
+					<span class="glyphicon glyphicon-chevron-down"></span>
+				</div>
+				</a>
+				<a href=#>
+				<div class="col-md-2">
+					<span class="glyphicon glyphicon-comment"></span>
+				</div>
+				</a>
+
+			</div>
+		</div></a>
+		<div class="jumbotron" style="background:#B3B3B3;">
+			<a href=#><div class="row">
+				<div class="col-md-8" style="color: Black; text-align:left">
+					<p class="lead">#1</p>
+				</div>
+				<div class="col-md-4">
+				</div>
+				<div class="col-md-8">
+					<p class="lead">Les filles sont arrivées plutôt tôt     <span class="glyphicon glyphicon-arrow-right"></span></p>
+				</div>
+				<div class="col-md-4">
+					<p class="lead">Plutoto</p>
+				</div>
+				<a href=#>
+					<div class="col-md-2">
+					<span class="glyphicon glyphicon-chevron-up"></span>
+					</div>
+				</a>
+				<a href=#>
+				<div class="col-md-2">
+					<span class="glyphicon glyphicon-chevron-down"></span>
+				</div>
+				</a>
+				<a href=#>
+				<div class="col-md-2">
+					<span class="glyphicon glyphicon-comment"></span>
+				</div>
+				</a>
+			</div>
+		</div></a>
+		<div style=" text-align:center;">
+			<ul class="pagination" class="text-center" style="" >
+				<li>
+				<a href="#" aria-label="Previous" >
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+				</li>
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+				<li>
+				<a href="#" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-md-3 text-center pagination-centered">
+<div class="fb-page" data-href="https://www.facebook.com/Plutoto-596447807049170/" data-width="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="true"></div>
+</div>
+</div>
+</body>
