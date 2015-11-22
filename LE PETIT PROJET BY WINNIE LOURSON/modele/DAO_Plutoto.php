@@ -65,7 +65,21 @@ public function set_plutoto($name, $sentence){
   }
 }
 
+public function delete_plutoto($id)
+{
+  try{
+     $sth = $this->connexion->prepare("DELETE  FROM `plutoto` WHERE `id` = \"".$id."\"");
+    $sth->execute();
+  }
+  catch (TableAccesException $e) {
+    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+  }
+ catch(PDOException $e){
+    $exception=new ConnexionException("problème de connection à la base");
+    throw $exception;
+  }
 
+}
 
 
 
