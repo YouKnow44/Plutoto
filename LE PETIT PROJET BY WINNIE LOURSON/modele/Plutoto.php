@@ -11,6 +11,7 @@ class Plutoto {
 		$this->name = $n;
 		$this->sentence = $s;
 		$this->nb_like = $l;
+		$l=0;
 	}
 
 	public function get_name(){
@@ -30,10 +31,10 @@ class Plutoto {
 	}
 
 	public function get_nb_like(){
-		return $this->name;
+		return $this->nb_like;
 	}
 
-	public function set_nb_lile($n){
+	public function set_nb_like($n){
 		$this->nb_like = $n;
 	}
 
