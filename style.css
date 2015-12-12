@@ -1,0 +1,5 @@
+
+	a.jaime { display: inline-block; color: #EF627E; text-decoration: none; }
+	a.jaime:hover { text-decoration: underline; }
+	a.jaime-a-voter { font-style: italic; cursor: default; background: url(coeur.gif) 0% 50% no-repeat; padding-left: 20px; }
+	a.jaime-a-voter:hover { text-decoration: none; }

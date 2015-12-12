@@ -1,17 +1,18 @@
 <?php
 
 class Plutoto {
+	private $id;
 	private $name;
 	private $sentence;
 	private $nb_like;
 
 
 
-	function __construct($n, $s, $l){
+	function __construct($i, $n, $s, $l){
+		$this->id = $i;
 		$this->name = $n;
 		$this->sentence = $s;
 		$this->nb_like = $l;
-		$l=0;
 	}
 
 	public function get_name(){
@@ -36,6 +37,14 @@ class Plutoto {
 
 	public function set_nb_like($n){
 		$this->nb_like = $n;
+	}
+
+	public function get_id(){
+		return $this->id;
+	}
+
+	public function set_id($n){
+		$this->id = $n;
 	}
 
 }
