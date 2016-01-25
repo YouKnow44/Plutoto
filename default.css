@@ -1,6 +1,17 @@
+body { 
+    background-image:  url(images/background.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+
+
 .jumbotron{
 padding: 5px;
 margin : 30px;
+border-radius :10px;
+box-shadow:1px 1px 12px #ff004c;
 }
 @font-face {
     font-family: 'lobster'; /*a name to be used later*/
@@ -27,4 +38,8 @@ a .row{
 }
 .jubotron a{
 	color: Black;
+}
+
+.col-md-6 .text-center .form-group{
+	width: 200%;
 }

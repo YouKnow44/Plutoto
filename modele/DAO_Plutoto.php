@@ -11,7 +11,7 @@ class DAO_Plutoto{
 public function __construct(){
   try{
       //$chaine="mysql:host=localhost;dbname=E134935T";
-      $this->connexion = new PDO('mysql:host=localhost;dbname=test;charset=utf8',"","");
+	  $this->connexion = new PDO('mysql:host=localhost;dbname=E146084M;charset=utf8',"E146084M","E146084M");
       // pour la prise en charge des exceptions par PHP
       $this->connexion->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
      }
@@ -26,11 +26,12 @@ public function deconnexion(){
    $this->connexion = null;
 }
 
+
 public function get_plutoto($name){
   $result = array();
   $result_plutoto = array();
   try{
-    $sth = $this->connexion->prepare("SELECT  `id`, `name`, `sentence`, `nb_like` FROM `plutoto` WHERE `name` = \"".$name."\"");
+    $sth = $this->connexion->prepare("SELECT * FROM `plutoto` WHERE `name` = \"".$name."\" and valide = 1");
     $sth->execute();
     $result = $sth->fetch();
   }
@@ -38,7 +39,7 @@ public function get_plutoto($name){
     echo 'Exception reçue : ',  $e->getMessage(), "\n";
   }
 
-  array_push($result_plutoto, new Plutoto($result["id"],$result["name"],$result["sentence"],$result["nb_like"]));
+  array_push($result_plutoto, new Plutoto($result["id"],$result["name"],$result["sentence"], $result["video"]));
    
     return $result_plutoto;
 }
@@ -49,26 +50,30 @@ public function get_all_plutoto(){
   $result_plutoto = array();
   try{
     
-    $sth = $this->connexion->prepare("SELECT `id`,`name`, `sentence`, `nb_like` FROM `plutoto`");
+    $sth = $this->connexion->prepare("SELECT *  FROM `plutoto` where valide = 1");
     $sth->execute();
     $result = $sth->fetchAll();
+    foreach ($result as $elem) {
+	if (!(strpos($elem["video"],"youtube.com") !== false)){
+	    array_push($result_plutoto, new Plutoto($elem["id"],$elem["name"],$elem["sentence"],$elem["video"]));
+	}
+  }
+    return $result_plutoto;
   }
  catch (TableAccesException $e) {
     echo 'Exception reçue : ',  $e->getMessage(), "\n";
   }
 
-  foreach ($result as $elem) {
-    array_push($result_plutoto, new Plutoto($elem["id"],$elem["name"],$elem["sentence"],$elem["nb_like"]));
-  }
-    return $result_plutoto;
 }
+
+
 
 public function dao_get_N_premiers($n){
   $list_plutoto = array();
   $result = array();
   try{
    
-    $sth = $this->connexion->prepare("SELECT `id`,`name`, `sentence`, `nb_like` FROM `plutoto` ORDER BY `id` DESC");
+    $sth = $this->connexion->prepare("SELECT  where valide = 1 ORDER BY `id` DESC");
     $sth->execute();
     $result = $sth->fetchAll();
   }
@@ -77,12 +82,16 @@ public function dao_get_N_premiers($n){
   }
   if($n < count($result)){
     for($i=0; $i<$n; $i++){
-      array_push($list_plutoto, new Plutoto($result[$i]["name"],$result[$i]["sentence"],$result[$i]["nb_like"]));
+	if (!(strpos($elem["video"],"youtube.com") !== false)){
+      array_push($list_plutoto, new Plutoto($result[$i]["name"],$result[$i]["sentence"],$result[$i]["video"]));
+	}
     }
   }
   else{
     for($i=0; $i<count($result); $i++){
-      array_push($list_plutoto, new Plutoto($result[$i]["name"],$result[$i]["sentence"],$result[$i]["nb_like"]));
+	if (!(strpos($elem["video"],"youtube.com") !== false)){
+      array_push($list_plutoto, new Plutoto($result[$i]["name"],$result[$i]["sentence"],$result[$i]["video"]));
+	}
     }
   }
   
@@ -91,9 +100,9 @@ public function dao_get_N_premiers($n){
 }
 
 
-public function set_plutoto($name, $sentence){
+public function set_plutoto($name, $sentence, $video){
   try{
-    $sth = $this->connexion->prepare("INSERT INTO `plutoto`(`name`, `sentence`, `nb_like`) VALUES (\"".$name."\",\"".$sentence."\",0)");
+    $sth = $this->connexion->prepare("INSERT INTO plutoto(name, sentence, video) VALUES ('".$name."','".$sentence."','".$video."')");
     $sth->execute();
   }
  catch (TableAccesException $e) {
@@ -117,11 +126,83 @@ public function delete_plutoto($id)
 
 }
 
-public function like_plutoto($id)
+
+public function get_un_plutoto_from_id($id){
+	try{
+		$statement = $this->connexion->prepare("select * from plutoto where valide=1 and id=".$id);
+		$statement->execute();
+		$elem = $statement->fetch();
+		return new Plutoto($elem["id"],$elem["name"],$elem["sentence"],$elem["video"]);
+	}
+	catch (TableAccesException $e){
+		$exception = new ConnexionException("problème d'accés à la base");
+		throw $exception;
+	}
+}
+
+public function get_plutoto_video(){
+	try{
+		$statement = $this->connexion->prepare("select * from plutoto where  valide =1 ORDER BY id DESC");
+		$statement->execute();
+		$result = $statement->fetchAll();
+		$list_plutoto = array();
+		foreach ($result as $elem) {
+			if ((strpos($elem["video"],"youtube.com") !== false)){
+			      array_push($list_plutoto, new Plutoto($elem["id"],$elem["name"],$elem["sentence"],$elem["video"]));
+			}
+		}
+		return $list_plutoto;
+	}
+	catch(TableAccesException $e){
+		echo ("exception acces a la table".$e->getMessage());
+
+	}
+}
+
+
+//la partie commentaire (damien)
+public function ajoutCommentaire($id, $name, $comment){
+  try{
+	 if($this->commentaire_present($id, $name , $comment) == false){ 
+	    $sth = $this->connexion->prepare("INSERT INTO comment(id, name, comment) VALUES (".$id.",'".$name."','".$comment."')");
+	    $sth->execute();
+	 } 
+  }
+ catch (TableAccesException $e) {
+    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+  }
+}
+
+public function commentaire_present($id , $name , $comment){
+	$statement = $this->connexion->prepare('select * from comment where id='.$id.' AND name="'.$name.'" AND comment="'.$comment.'"');
+	$statement->execute();
+	$result = $statement->fetch();
+	if ($result == null){
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+
+public function getCommentaire($id){
+ 	try{
+		$statement = $this->connexion->prepare("select * from comment where id=".$id);
+		$statement->execute();
+		$comments = $statement->fetchAll();
+		return $comments;
+	}
+	catch (TableAccesException $e) {
+	    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+	}
+}
+
+public function valider_plutoto($id)
 {
   $l=1;
   try{
-    $sth = $this->connexion->prepare("update plutoto set nb_like = nb_like +".$l." where id= ".$id.";");
+    $sth = $this->connexion->prepare("UPDATE plutoto SET valide = 1 WHERE id= ".$id.";");
     $sth->execute();
   }
   catch (TableAccesException $e) {
@@ -133,8 +214,6 @@ public function like_plutoto($id)
   }
 
 }
-
-
 
 
 }

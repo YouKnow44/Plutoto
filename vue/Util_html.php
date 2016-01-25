@@ -13,13 +13,13 @@ class Util_html{
 			<title>Plutoto Le Site des Plutotos</title>
 			<meta charset=\"utf-8\">
 			<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+			<script type=\"text/javascript\" src=\"http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js\"></script>
 			<link rel=\"stylesheet\" href=\"default.css\">
 			<link rel=\"stylesheet\" href=\"bootstrap/css/bootstrap.css\">
 			<link rel=\"stylesheet\" href=\"bootstrap/css/bootstrap-theme.css\">
 			<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"  />
 			<script src=\"bootstrap/js/bootstrap.js\"></script>
 			<link rel=\"stylesheet\" href=\"default.css\">
-			<script type=\"text/javascript\" src=\"http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js\"></script>
      		<script type=\"text/javascript\" src=\"jaime.js\"></script>
 			</head>
 			<body>";
@@ -37,7 +37,7 @@ class Util_html{
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <p class=\"navbar-brand\" href=\"#\"><a href=\"default.html\"><img src=\"images/logo.png\" style=\"max-width:250px; margin-left: 40px; margin-top: -51px;\"/></a></p>
+        <p class=\"navbar-brand\" href=\"#\"><a href=\"index.html\"><img src="images/logo.png" style=\"max-width:250px; margin-left: 40px; margin-top: -51px;\"/></a></p>
       </button>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -73,10 +73,12 @@ class Util_html{
 
 	public static function div_title($title){
 		return '<div class="jumbotron" style="background:#B6C0B6; margin-top : 70px; margin-bottom: 3px; font-family: lobster; font-style: italic;">
-					<div class="page-header">
-		  				<h1>Plutoto<small>'.$title.'</small></h1>
-					</div>
-				</div>';
+		<div class="text-center pagination-centered">
+		<div class="page-header">
+		  <h1>Plutoto<small>Les nouveaux</small></h1>
+		</div>
+		</div>
+		</div>';
 	}
 
 	public static function div_plutoto($plutoto){
@@ -101,11 +103,11 @@ class Util_html{
 					<span class="glyphicon glyphicon-chevron-down"></span>
 				</div>
 				</a>
-				<a href=#>
+					<a href="vue/commentaireTest.php?id='.$plutoto->get_id().'">
 				<div class="col-md-2">
-					<span class="glyphicon glyphicon-comment"></span>
+						<span class="glyphicon glyphicon-comment"></span>
 				</div>
-				</a>
+					</a>
 
 			</div></div></a>';
 	}

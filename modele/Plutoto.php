@@ -8,11 +8,14 @@ class Plutoto {
 
 
 
-	function __construct($i, $n, $s, $l){
+	function __construct($i, $n, $s, $video){
 		$this->id = $i;
 		$this->name = $n;
 		$this->sentence = $s;
-		$this->nb_like = $l;
+		$this->video = $video;
+	}
+	public function getVideo(){
+		return $this->video;
 	}
 
 	public function get_name(){

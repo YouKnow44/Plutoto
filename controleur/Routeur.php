@@ -23,7 +23,7 @@ class Routeur{
 
 
 		if(isset($_POST["plutoto_name_submit"]) && isset($_POST["plutoto_sentence_submit"]) ){
-			$this->controleur_plutoto->ajouter_plutoto($_POST["plutoto_name_submit"], $_POST["plutoto_sentence_submit"]);
+			$this->controleur_plutoto->ajouter_plutoto($_POST["plutoto_name_submit"], $_POST["plutoto_sentence_submit"], $_POST["plutoto_video_submit"]);
 			$this->controleur_plutoto->afficher_all_plutoto();
 		}
 		else if(isset($_POST["plutoto_delete"])){
@@ -51,13 +51,22 @@ class Routeur{
 	
 		
 	}
-
+/*****************      LA REQUETE QUI EST REEXECUTEE A CHAQUE ACTUALISATION DE LA PAGE       *************/
 	public function router_requete(){
 		if(isset($_GET["Randoms"])){
 			$this->controleur_plutoto->afficher_random_plutoto();
 		}
+		elseif(isset($_GET["lesFlops"])){
+			$this->controleur_plutoto->afficher_flop_plutoto();
+		}
+		elseif(isset($_GET["phrase_submit"]) && isset($_GET["plutoto_submit"])){
+			$this->controleur_plutoto->ajouter_plutoto($_GET["plutoto_submit"], $_GET["phrase_submit"], $_GET["video_submit"]);
+		}
 		elseif(isset($_GET["soummettre"])){
 			$this->controleur_plutoto->afficher_soumission_plutoto();
+		}
+		elseif(isset($_GET["Video"])){
+			$this->controleur_plutoto->afficher_plutoto_video();
 		}
 		else{
 			$this->controleur_plutoto->afficher_all_plutoto();

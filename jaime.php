@@ -12,7 +12,7 @@ $derniere_ip = isset($_SERVER['REMOTE_ADDR']) ? (int)ip2long($_SERVER['REMOTE_AD
 
 
 // Connexion a la DB
-$mysqli = new mysqli('localhost', '', '', 'test');
+$mysqli = new mysqli('localhost', '', '', 'plutoto_db');
 if($mysqli->connect_error) {
 	die('Erreur de connexion (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
 }
