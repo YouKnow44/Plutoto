@@ -66,6 +66,49 @@ public function get_all_plutoto(){
 
 }
 
+// methode qui retourne tous les plutotos ( nécessaire pour l'admin)
+public function get_all_plutoto_valide_nonValide(){
+  $result = array();
+  $result_plutoto = array();
+  try{
+    
+    $sth = $this->connexion->prepare("SELECT *  FROM `plutoto` ");
+    $sth->execute();
+    $result = $sth->fetchAll();
+    foreach ($result as $elem) {
+  if (!(strpos($elem["video"],"youtube.com") !== false)){
+      array_push($result_plutoto, new Plutoto($elem["id"],$elem["name"],$elem["sentence"],$elem["video"]));
+  }
+  }
+    return $result_plutoto;
+  }
+ catch (TableAccesException $e) {
+    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+  }
+
+}
+
+// methode qui retourne  les plutotos non valides( nécessaire pour l'admin)
+public function get_all_plutoto_nonValide(){
+  $result = array();
+  $result_plutoto = array();
+  try{
+    
+    $sth = $this->connexion->prepare("SELECT *  FROM `plutoto` WHERE valide = 0");
+    $sth->execute();
+    $result = $sth->fetchAll();
+    foreach ($result as $elem) {
+  if (!(strpos($elem["video"],"youtube.com") !== false)){
+      array_push($result_plutoto, new Plutoto($elem["id"],$elem["name"],$elem["sentence"],$elem["video"]));
+  }
+  }
+    return $result_plutoto;
+  }
+ catch (TableAccesException $e) {
+    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+  }
+
+}
 
 
 public function dao_get_N_premiers($n){
@@ -202,7 +245,7 @@ public function valider_plutoto($id)
 {
   $l=1;
   try{
-    $sth = $this->connexion->prepare("UPDATE plutoto SET valide = 1 WHERE id= ".$id.";");
+    $sth = $this->connexion->prepare("update plutoto set valide = 1 where id'".$id."';");
     $sth->execute();
   }
   catch (TableAccesException $e) {
@@ -213,6 +256,25 @@ public function valider_plutoto($id)
     throw $exception;
   }
 
+}
+
+//methode pour verifier le login et le mot de passe entré
+public function verif_password($login,$pass)
+{
+   $l=1;
+  try{
+    $sth = $this->connexion->query("select * from comptes where type='".$login."';");
+    $result = $sth->fetch();
+    
+    return ($result['motDePasse'] == $pass && isset($result['motDePasse']));
+  }
+  catch (TableAccesException $e) {
+    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+  }
+ catch(PDOException $e){
+    $exception=new ConnexionException("problème de connection à la base");
+    throw $exception;
+  }
 }
 
 
