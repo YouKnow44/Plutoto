@@ -26,9 +26,7 @@ public function afficher_all_plutoto(){
 	}
 
 	public function afficher_random_plutoto(){
-		$array_random = $this->dao_plutoto->get_all_plutoto();
-		shuffle($array_random);
-		$this->vue_plutoto->afficher_vue_all_plutoto($array_random);
+		$this->vue_plutoto->afficher_vue_randoms($this->dao_plutoto->get_all_plutoto());
 	}
 
 	public function ajouter_plutoto($name, $sentence, $video){

@@ -75,7 +75,7 @@ class Util_html{
 		return '<div class="jumbotron" style="background:#B6C0B6; margin-top : 70px; margin-bottom: 3px; font-family: lobster; font-style: italic;">
 		<div class="text-center pagination-centered">
 		<div class="page-header">
-		  <h1>Plutoto<small>Les nouveaux</small></h1>
+		  <h1>Plutoto<small>'.$title.'</small></h1>
 		</div>
 		</div>
 		</div>';

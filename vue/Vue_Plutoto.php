@@ -140,4 +140,44 @@ echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
     </div>';
   }
 
+  public function afficher_vue_randoms($array_all_plutoto){
+    echo Util_html::headerGen();
+    echo Util_html::navbarGen();
+    echo '
+<!--pour gérer facebook-->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, "script", "facebook-jssdk"));</script>;
+<div class="row">
+  <div class="col-md-3 text-center pagination-centered" style="background-attachment: fixed;">
+            <a class="twitter-timeline"  href="https://twitter.com/hashtag/Plutoto" data-width="300" data-widget-id="654351090713018368">#Plutoto Tweets</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?"http":"https";if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </div>
+<div class="col-md-6" style="height: 1500px">
+  <div class="text-center pagination-centered">';
+
+  echo Util_html::div_title("randoms");
+  echo Util_html::div_list();
+  $tab = $array_all_plutoto;
+  shuffle($tab);
+   for($i=0;$i<count($tab);$i++){
+      echo Util_html::div_plutoto($tab[$i]);
+    }
+  echo Util_html::div_list();
+    echo '
+    </div>
+</div>
+  <div class="col-md-3 text-center pagination-centered">
+<div class="fb-page" data-href="https://www.facebook.com/Plutoto-596447807049170/" data-width="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="true"></div>
+</div>';
+  echo Util_html::bottomGen();
+  }
+
+}
+
 }
