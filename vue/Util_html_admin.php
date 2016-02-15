@@ -1,7 +1,7 @@
 <?php
 
 
-class Util_html{
+class Util_html_admin{
 
 
 	public static function headerGen(){
@@ -43,11 +43,10 @@ class Util_html{
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="font-family:"lobster"; font-size: 17px;" >
       <ul class="nav navbar-nav">
-        <li><a href="index.php?lesTops=OK">Les Tops</a></li>
-        <li><a href="index.php?lesFlops=OK">Les Flops</a></li>
-        <li><a href="index.php?Randoms=OK">Randoms</a></li>
-        <li><a href="index.php?Video=OK">Vidéos</a></li>
-        <li><a href="index.php?soummettre=OK">Soumettre</a></li>
+
+        <li><a href="index.php?param=OK">Paramètres</a></li>
+        <li><a href="index.php?valid=OK">Validation</a></li>
+        <li><a href="index.php?deconnex=OK">Déconnexion</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
@@ -55,7 +54,7 @@ class Util_html{
         <ul class="dropdown-menu">
           <li><a href="#">A propos</a></li>
           <li><a href="#">Suggestion</a></li>
-          <li><a href="index.php?moderation=OK">Moderation</a></li>
+          <li><a href="#">Moderation</a></li>
           <li role="separator" class="divider"></li>
           <li><a href="#">Separated link</a></li>
         </ul>
@@ -85,7 +84,7 @@ class Util_html{
 		echo '<div class="jumbotron" style="background:#E6E6E6; ">
 			<a href=#><div class="row">
 				<div class="col-md-12" style="color: Black; text-align:left ">
-					<p class="lead"><a href="#" title='.$plutoto->get_name().' class="jaime" >J&rsquo;aime</a></p>
+					<p class="lead"><a href="#" title='.$plutoto->get_id().' class="jaime" >J&rsquo;aime</a></p>
 				</div>
 				<div class="col-md-8">
 					<p class="lead">'.$plutoto->get_sentence().'<span class="glyphicon glyphicon-arrow-right"></span></p>
@@ -103,11 +102,11 @@ class Util_html{
 					<span class="glyphicon glyphicon-chevron-down"></span>
 				</div>
 				</a>
-					<a href="vue/commentaireTest.php?id='.$plutoto->get_id().'">
+				<a href=#>
 				<div class="col-md-2">
-						<span class="glyphicon glyphicon-comment"></span>
+					<span class="glyphicon glyphicon-comment"></span>
 				</div>
-					</a>
+				</a>
 
 			</div></div></a>';
 	}
@@ -133,6 +132,7 @@ class Util_html{
 			</ul>
 		</div>';
 	}
+
 
 
 }

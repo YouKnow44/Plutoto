@@ -11,7 +11,7 @@ class DAO_Plutoto{
 public function __construct(){
   try{
       //$chaine="mysql:host=localhost;dbname=E134935T";
-	  $this->connexion = new PDO('mysql:host=localhost;dbname=E146084M;charset=utf8',"E146084M","E146084M");
+	  $this->connexion = new PDO('mysql:host=localhost;dbname=E145271D;charset=utf8',"E145271D","E145271D");
       // pour la prise en charge des exceptions par PHP
       $this->connexion->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
      }

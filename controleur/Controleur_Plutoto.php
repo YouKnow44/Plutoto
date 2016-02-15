@@ -2,19 +2,24 @@
 
 require_once __DIR__."/../modele/DAO_Plutoto.php";
 require_once __DIR__."/../vue/Vue_Plutoto.php";
+require_once __DIR__."/../vue/Vue_Admin.php";
+
 
 class Controleur_Plutoto{
 	private $dao_plutoto;
 	private $vue_plutoto;
+	private $vue_admin;
 
 
 	function __construct(){
 		$this->dao_plutoto = new DAO_Plutoto();
 		$this->vue_plutoto = new Vue_Plutoto();
+		$this->vue_admin = new Vue_Admin();
 	}
 public function afficher_all_plutoto(){
 		$this->vue_plutoto->afficher_vue_all_plutoto($this->dao_plutoto->get_all_plutoto());
 	}
+
 
 	public function afficher_vue_test_DAO(){
 		$this->vue_plutoto->afficher_vue_test_DAO($this->dao_plutoto->get_all_plutoto(), $this->dao_plutoto->get_plutoto("plutoto"));
@@ -88,6 +93,43 @@ public function afficher_all_plutoto(){
 		}
 	}
 
+
+	// partie admin
+	public function afficher_all_plutoto_admin(){
+		$this->vue_admin->afficher_vue_all_plutoto($this->dao_plutoto->get_all_plutoto());
+	}
+
+	public function vue_afficher_parametre(){
+		$this->vue_admin->vue_afficher_parametre();
+		
+	}
+
+	public function vue_afficher_validation()
+	{
+		$this->vue_admin->vue_afficher_validation();
+	}
+
+	public function valider_plutoto($id)
+	{
+		$this->dao_plutoto->valider_plutoto($id);
+	}
+
+		public function afficher_all_plutoto_valide_nonValide()
+	{
+		$this->vue_admin->afficher_vue_all_plutoto($this->dao_plutoto->get_all_plutoto_valide_nonValide());
+	}
+
+		public function genereVueAuthentification()
+	{
+		$this->vue_admin->genereVueAuthentification();
+	}
+
+
+	public function connexion($log,$pass)
+	{
+		return $this->dao_plutoto->verif_password($log,$pass) ;
+		
+	}
 
 
 

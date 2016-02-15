@@ -9,50 +9,12 @@ class Routeur{
 		$this->controleur_plutoto = new Controleur_Plutoto();
 	}
 
-	public function router_requete_test(){
-		/*if(!isset($_POST['cle'])) {
-	header('Location: ./');
-	die('-1');
-}*/
-/*
-		$cle = get_magic_quotes_gpc() ? $_POST['cle'] : addslashes($_POST['cle']);
-		$vote = isset($_POST['vote']);	
-		$derniere_ip = isset($_SERVER['REMOTE_ADDR']) ? (int)ip2long($_SERVER['REMOTE_ADDR']) : -1;*/
 
-
-
-
-		if(isset($_POST["plutoto_name_submit"]) && isset($_POST["plutoto_sentence_submit"]) ){
-			$this->controleur_plutoto->ajouter_plutoto($_POST["plutoto_name_submit"], $_POST["plutoto_sentence_submit"], $_POST["plutoto_video_submit"]);
-			$this->controleur_plutoto->afficher_all_plutoto();
-		}
-		else if(isset($_POST["plutoto_delete"])){
-			$this->controleur_plutoto->delete_plutoto($_POST["plutoto_delete"]);
-		}
-		else if(isset($_POST["plutoto"])){ // PROBLEME
-			echo $_POST["plutoto"];
-			foreach ($_POST["plutoto"] as $value) {
-				var_dump($value);
-			}
-			
-			$this->controleur_plutoto->like_plutoto($_POST["plutoto"]);
-		}
-
-		
-		/*else if(isset($_POST['cle']))
-		{
-			$this->controleur_plutoto->like();
-		}*/
-		
-
-		else{
-			$this->controleur_plutoto->afficher_all_plutoto();
-		}
-	
-		
-	}
 /*****************      LA REQUETE QUI EST REEXECUTEE A CHAQUE ACTUALISATION DE LA PAGE       *************/
 	public function router_requete(){
+
+		
+
 		if(isset($_GET["Randoms"])){
 			$this->controleur_plutoto->afficher_random_plutoto();
 		}
@@ -68,6 +30,60 @@ class Routeur{
 		elseif(isset($_GET["Video"])){
 			$this->controleur_plutoto->afficher_plutoto_video();
 		}
+
+		/*****************      PARTIE ADMIN       *************/
+
+		//page parametre
+		elseif(isset($_GET['param'])){
+			$this->controleur_plutoto->vue_afficher_parametre();
+		}//suppression plutoto
+		elseif(isset($_GET['del']))
+			{
+			  $i=0;
+			  for($i;$i<=sizeof($_GET['options']);$i++)
+			  {
+			    $this->controleur_plutoto->delete_plutoto($_GET['options'][$i]);
+			  }
+			  $this->controleur_plutoto->vue_afficher_parametre();
+			  
+			}
+		//validation plutoto
+		elseif(isset($_GET['validation']))
+		{
+			$i=0;
+		  for($i;$i<=sizeof($_GET['options']);$i++)
+		  {
+		    $this->controleur_plutoto->valider_plutoto($_GET['options'][$i]);
+		  }
+		  $this->controleur_plutoto->vue_afficher_parametre();
+		}
+		elseif(isset($_GET['valid']))
+		{
+			$this->controleur_plutoto->vue_afficher_validation();
+		}
+		//connexion admin
+		elseif(isset($_GET['moderation']))
+		{
+			$this->controleur_plutoto->genereVueAuthentification();
+		}
+		elseif(isset($_POST['login']) && isset($_POST['pass'])){
+			if($this->controleur_plutoto->connexion(htmlspecialchars($_POST['login']),htmlspecialchars($_POST['pass'])) == true)
+			{
+				$_SESSION['login']= $_POST['login'];
+				$this->controleur_plutoto->afficher_all_plutoto_admin();	
+			}
+			else{
+				$this->controleur_plutoto->genereVueAuthentification();
+			}
+		}
+		//deconnexion
+		elseif(isset($_GET['deconnex']))
+		{
+			$_SESSION = array();
+			session_destroy();
+			$this->controleur_plutoto->genereVueAuthentification();
+		}
+
 		else{
 			$this->controleur_plutoto->afficher_all_plutoto();
 		}

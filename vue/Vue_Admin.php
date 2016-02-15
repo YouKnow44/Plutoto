@@ -79,7 +79,7 @@ class Vue_Admin{
 echo '<div class="row" style="width : 100%;">';
 echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
           <div class="text-center pagination-centered">
-            <form action="indexAdmin.php" method="GET">
+            <form action="index.php" method="GET">
               <div class="form-group">
                 <label for="exampleInputPassword1">Phrase</label>
                 <input type="text" class="form-control" name="phrase_submit" placeholder="Phrase">
@@ -141,7 +141,7 @@ echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
           <p class="lead">Tous les plutotos !</p>
         </div>
         <div class="col-md-8">
-        <form action="indexAdmin.php" method="GET">
+        <form action="index.php" method="GET">
           <p class="lead">';
           
           $plutotos = $this->bd->get_all_plutoto_valide_nonValide();
@@ -209,7 +209,7 @@ echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
     <br/>
     <br/>
   
-  <form action="indexAdmin.php" method="post">
+  <form action="index.php" method="post">
     <table>
       
       <tr>
@@ -288,7 +288,7 @@ echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
           <p class="lead">Les plutotos  non validés !</p>
         </div>
         <div class="col-md-8">
-        <form action="indexAdmin.php" method="GET">
+        <form action="index.php" method="GET">
           <p class="lead">';
           
           $plutotos = $this->bd->get_all_plutoto_nonValide();
