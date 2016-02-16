@@ -14,7 +14,6 @@ class Routeur{
 	public function router_requete(){
 
 		
-
 		if(isset($_GET["Randoms"])){
 			$this->controleur_plutoto->afficher_random_plutoto();
 		}
@@ -29,6 +28,13 @@ class Routeur{
 		}
 		elseif(isset($_GET["Video"])){
 			$this->controleur_plutoto->afficher_plutoto_video();
+		}
+		elseif(isset($_GET['lesNouveaux'])){
+			$this->controleur_plutoto->afficher_all_plutoto();
+		}
+
+		elseif(isset($_GET['lesTops'])){
+			$this->controleur_plutoto->afficher_top_plutoto();
 		}
 
 		/*****************      PARTIE ADMIN       *************/
@@ -76,6 +82,21 @@ class Routeur{
 				$this->controleur_plutoto->genereVueAuthentification();
 			}
 		}
+		elseif (isset($_GET['relogin'])) {
+			$this->controleur_plutoto->genereVueReinitMotDePasse();
+		}
+		elseif (isset($_POST['loginRecup']) & isset($_POST['mailRecup'])) {
+			if($this->controleur_plutoto->verif_login_mail(htmlspecialchars($_POST['loginRecup']),htmlspecialchars($_POST['mailRecup'])) == true)
+			{
+					$this->controleur_plutoto->envoie_mail($_POST['mailRecup']);
+			}
+			else{
+				$this->controleur_plutoto->genereVueReinitMotDePasse();
+			}
+		}
+
+
+
 		//deconnexion
 		elseif(isset($_GET['deconnex']))
 		{

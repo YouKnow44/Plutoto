@@ -10,7 +10,7 @@ class DAO_Plutoto{
 
 public function __construct(){
   try{
-      //$chaine="mysql:host=localhost;dbname=E134935T";
+      //$chaine="mysql:host=localhost;dbname=E145271D";
 	  $this->connexion = new PDO('mysql:host=localhost;dbname=E145271D;charset=utf8',"E145271D","E145271D");
       // pour la prise en charge des exceptions par PHP
       $this->connexion->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -277,8 +277,85 @@ public function verif_password($login,$pass)
   }
 }
 
+public function get_top_plutoto()
+{
+    $result = array();
+  $result_plutoto = array();
+  try{
+    
+    $sth = $this->connexion->prepare("SELECT * FROM `plutoto`, jaimes WHERE valide=1 and jaimes.id = plutoto.id order by jaimes.voteslike DESC");
+    $sth->execute();
+    $result = $sth->fetchAll();
+    foreach ($result as $elem) {
+  if (!(strpos($elem["video"],"youtube.com") !== false)){
+      array_push($result_plutoto, new Plutoto($elem["id"],$elem["name"],$elem["sentence"],$elem["video"]));
+  }
+  }
+    return $result_plutoto;
+  }
+ catch (TableAccesException $e) {
+    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+  }
+}
+
+public function get_flop_plutoto()
+{
+    $result = array();
+  $result_plutoto = array();
+  try{
+    
+    $sth = $this->connexion->prepare("SELECT * FROM `plutoto`, jaimes WHERE valide=1 and jaimes.id = plutoto.id order by jaimes.votesdislike DESC");
+    $sth->execute();
+    $result = $sth->fetchAll();
+    foreach ($result as $elem) {
+  if (!(strpos($elem["video"],"youtube.com") !== false)){
+      array_push($result_plutoto, new Plutoto($elem["id"],$elem["name"],$elem["sentence"],$elem["video"]));
+  }
+  }
+    return $result_plutoto;
+  }
+ catch (TableAccesException $e) {
+    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+  }
+}
+
+
+public function verif_login_mail($login,$mail)
+{
+  try{
+    $sth = $this->connexion->query("select * from comptes where type='".$login."' and mail = '".$mail."';");
+    $result = $sth->fetch();
+    
+    return (($result['type'] == $login && isset($result['type'])) && ($result['mail'] == $mail && isset($result['mail']))) ;
+  }
+  catch (TableAccesException $e) {
+    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+  }
+ catch(PDOException $e){
+    $exception=new ConnexionException("problème de connection à la base");
+    throw $exception;
+  }
+}
+
+public function reinit_mot_de_passe($login,$mail,$mdp)
+{
+  try{
+    $sth = $this->connexion->query("UPDATE `comptes` SET `motDePasse`='".$mdp."' WHERE `type` = '".$login."' and `mail` = '".$mail."';");
+  }
+    catch (TableAccesException $e) {
+    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+  }
+ catch(PDOException $e){
+    $exception=new ConnexionException("problème de connection à la base");
+    throw $exception;
+  }
+}
 
 }
+
+
+
+
 
 
 ?>

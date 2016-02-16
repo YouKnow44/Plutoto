@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__."/Util_html_admin.php";
+require_once __DIR__."/Util_html.php";
 require_once __DIR__."/../modele/Plutoto.php";
 
 
@@ -13,8 +13,8 @@ class Vue_Admin{
 	}
 
 	public function afficher_vue_all_plutoto($array_all_plutoto){
-		echo Util_html_admin::headerGen();
-		echo Util_html_admin::navbarGen();
+		echo Util_html::headerGen();
+		echo Util_html::navbarGenAdmin();
 		echo '
 <!--pour gérer facebook-->
 <div id="fb-root"></div>
@@ -33,12 +33,12 @@ class Vue_Admin{
 <div class="col-md-6" style="height: 1500px">
   <div class="text-center pagination-centered">';
 
-  echo Util_html_admin::div_title(" Les nouveaux");
-  echo Util_html_admin::div_list();
+  echo Util_html::div_title(" Les nouveaux");
+  echo Util_html::div_list();
    for($i=0;$i<count($array_all_plutoto);$i++){
-      echo Util_html_admin::div_plutoto($array_all_plutoto[$i]);
+      echo Util_html::div_plutoto_admin($array_all_plutoto[$i]);
     }
-  echo Util_html_admin::div_list();
+  echo Util_html::div_list();
     echo '
     </div>
 </div>
@@ -46,14 +46,14 @@ class Vue_Admin{
 <div class="fb-page" data-href="https://www.facebook.com/Plutoto-596447807049170/" data-width="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="true"></div>
 </div>';
   
-  echo Util_html_admin::bottomGen();
+  echo Util_html::bottomGen();
 	}
 
 
 
   public function vue_afficher_soumission_plutoto(){
-    echo Util_html_admin::headerGen();
-    echo Util_html_admin::navbarGen();
+    echo Util_html::headerGen();
+    echo Util_html::navbarGenAdmin();
     echo '
 <!--pour gérer facebook-->
 <div id="fb-root"></div>
@@ -73,7 +73,7 @@ class Vue_Admin{
 
   
 <div class ="col-md-6">';
-  echo Util_html_admin::div_title(" Soumettre un Plutoto !");
+  echo Util_html::div_title(" Soumettre un Plutoto !");
   echo '<div class="text-center pagination-centered">';
      
 echo '<div class="row" style="width : 100%;">';
@@ -100,8 +100,8 @@ echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
   }
 
   public function vue_afficher_parametre(){
-    echo Util_html_admin::headerGen();
-    echo Util_html_admin::navbarGen();
+    echo Util_html::headerGen();
+    echo Util_html::navbarGenAdmin();
     echo '<div style="background-image: url(images/background.jpg); background-attachment: fixed;  width : 100%;">
 <div class="row">
 
@@ -218,7 +218,7 @@ echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
       </tr>
 
       <tr>
-        <td> <p> Entre votre mot de passe: </p>   </td>
+        <td> <p> Entrez votre mot de passe: </p>   </td>
         <td> <input type="password" name ="pass" /> </td>
       </tr>
       
@@ -226,6 +226,71 @@ echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
         <td> <input type="submit"  align="center"  value="Envoyer"/></td>
       </tr>
 
+      <tr>
+        <td>   <a href="index.php?relogin=OK"> mot de pass oublié? </a></td>
+      </tr>
+
+
+</table>
+
+    
+    </form>
+
+    </div>
+
+
+    
+
+
+
+    </body>
+    </html>
+
+    <?php
+
+  }
+
+
+   public function genereVueReinitMotDePasse()
+  {
+    ?>
+    <!doctype html>
+    <html>
+    <head>
+        <meta charset ="UTF-8">
+        <link rel="stylesheet" type="text/css" href="vue/css/authentification.css">
+    </head>
+
+    <body>    
+    <h1>mot de pass oublié</h1>
+    <br/><br/>
+    
+    <div align="middle">
+    <img src="images/background.jpg" style="width: 300px" >
+    </div>
+
+    <h2 align="center"> mot de pass oublié </h2>
+    <br/>
+    <br/>
+
+    un mail vous sera envoyé avec un lien pour réinitialiser votre mot de passe
+  
+  <form action="index.php" method="post">
+    <table>
+      
+      <tr>
+        <td> <p> Entrez votre login : </p>   </td>
+        <td><input type="text"  name ="loginRecup" /> </td>
+      </tr>
+
+      <tr>
+        <td> <p> Entrez votre mot email: </p>   </td>
+        <td> <input type="text" name ="mailRecup" /> </td>
+      </tr>
+      
+      <tr>
+        <td> <input type="submit"  align="center"  value="Envoyer"/></td>
+      </tr>
 </table>
 
     
@@ -247,8 +312,8 @@ echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
 
   public function vue_afficher_validation()
   {
-     echo Util_html_admin::headerGen();
-    echo Util_html_admin::navbarGen();
+     echo Util_html::headerGen();
+    echo Util_html::navbarGenAdmin();
     echo '<div style="background-image: url(images/background.jpg); background-attachment: fixed;  width : 100%;">
 <div class="row">
 
