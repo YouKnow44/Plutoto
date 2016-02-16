@@ -245,7 +245,7 @@ public function valider_plutoto($id)
 {
   $l=1;
   try{
-    $sth = $this->connexion->prepare("update plutoto set valide = 1 where id'".$id."';");
+    $sth = $this->connexion->prepare("UPDATE plutoto SET valide = 1 WHERE id= ".$id.";");
     $sth->execute();
   }
   catch (TableAccesException $e) {

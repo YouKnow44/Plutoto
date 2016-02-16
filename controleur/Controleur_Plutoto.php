@@ -49,7 +49,6 @@ public function afficher_all_plutoto(){
 
 	public function delete_plutoto($id){
 		$this->dao_plutoto->delete_plutoto($id);
-		$this->vue_plutoto->afficher_vue_test_DAO($this->dao_plutoto->get_all_plutoto(), $this->dao_plutoto->get_plutoto("plutoto"));
 	}
 
 
