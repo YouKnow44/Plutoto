@@ -99,7 +99,7 @@ echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
     </div>';
   }
 
-  public function vue_afficher_parametre(){
+   public function vue_afficher_parametre(){
     echo Util_html::headerGen();
     echo Util_html::navbarGenAdmin();
     echo '<div style="background-image: url(images/background.jpg); background-attachment: fixed;  width : 100%;">
@@ -312,91 +312,73 @@ echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
 
   public function vue_afficher_validation()
   {
-     echo Util_html::headerGen();
+      echo "<!DOCTYPE html>
+      <html lang=\"en\">
+      <head>
+      
+      <title>Plutoto Le Site des Plutotos</title>
+      <meta charset=\"utf-8\">
+      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+      <script type=\"text/javascript\" src=\"http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js\"></script>
+      <link rel=\"stylesheet\" href=\"default.css\">
+      <link rel=\"stylesheet\" href=\"bootstrap/css/bootstrap.css\">
+      <link rel=\"stylesheet\" href=\"bootstrap/css/bootstrap-theme.css\">
+      <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"  />
+      <script src=\"bootstrap/js/bootstrap.js\"></script>
+      <link rel=\"stylesheet\" href=\"default.css\">
+        <script type=\"text/javascript\" src=\"jaime.js\"></script>
+        <script type=\"text/javascript\" src=\"vue/mon_script.js\"></script>
+      </head>
+      <body id =\"body_verif\">";
     echo Util_html::navbarGenAdmin();
     echo '<div style="background-image: url(images/background.jpg); background-attachment: fixed;  width : 100%;">
-<div class="row">
-
+ <div class="text-center pagination-centered">
   <div class ="col-md-6">
     <div class="jumbotron" style="background:#B6C0B6; margin-top : 70px; margin-bottom: 3px; font-family: lobster; font-style: italic;">
-    <div class="page-header">
-      <h1>Tous<small>Les plutotos</small></h1>
-    </div>
-    </div>
-
-    <div style=" text-align:center; padding-top: 5px; padding-bottom: 0px; margin: 0px; padding: 0px; ">
-      <ul class="pagination"   >
-        <li>
-        <a href="#" aria-label="Previous" >
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-        </li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li>
-        <a href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-        </li>
-      </ul>
-    </div>
-
-
-
-
-    <div class="jumbotron" style="background:#E6E6E6; ">
-      <div class="row">
-        <div class="col-md-12" style="color: Black; text-align:left ">
-          <p class="lead">Les plutotos  non validés !</p>
-        </div>
-        <div class="col-md-8">
-        <form action="index.php" method="GET">
-          <p class="lead">';
+      <div class="page-header">
+        <h1>Validation<small> ajoutés via le site</small></h1>
+      </div>
+    <div class="row">
+      <form action="index.php" method="GET">';
           
           $plutotos = $this->bd->get_all_plutoto_nonValide();
           foreach ($plutotos as $result) {
-            echo "[".$result->get_id()."]"." ".$result->get_name()." ".$result->get_sentence()."<input type=checkbox name=options[] value=".$result->get_id().">";
-            echo "</br>";
+            echo Util_html::div_plutoto_admin($result);
+            //echo "[".$result->get_id()."]"." ".$result->get_name()." ".$result->get_sentence()."<input type=checkbox name=options[] value=".$result->get_id().">";
+            //echo "</br>";
 
           }
           echo '<input name="validation" type="submit" value="Valider">';
-          ?>
+          echo'
       
         </div>
         </form>
         
     </div>
+  </div>
     
-    
-    <div style=" text-align:center;">
-      <ul class="pagination" class="text-center" style="" >
-        <li>
-        <a href="#" aria-label="Previous" >
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-        </li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li>
-        <a href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-        </li>
-      </ul>
+</div>
+ <div class="text-center pagination-centered" style="float:right">
+  <div class ="col-md-6">
+    <div class="jumbotron" style="background:#B6C0B6; margin-top : 70px; margin-bottom: 3px; font-family: lobster; font-style: italic;">
+      <div class="page-header">
+        <h1>Validation<small> ajoutés via Facebook</small></h1>
+      </div>
+    <div class="row" id="list_plutoto_fb">
+      <form action="index.php" method="GET">
+          
+      </form>
+        
     </div>
   </div>
+    
+</div>
   <div class="col-md-3 text-center pagination-centered">
 <div class="fb-page" data-href="https://www.facebook.com/Plutoto-596447807049170/" data-width="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="true"></div>
 </div>
 </div>
 </body>';
-<?php
+
   }
 
 
