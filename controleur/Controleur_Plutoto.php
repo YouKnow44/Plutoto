@@ -59,6 +59,9 @@ public function afficher_all_plutoto(){
 	//partie commentaire
 	public function ajoutCommentaire($id, $name, $comment){
 		$this->dao_plutoto->ajoutCommentaire($id, $name, $comment);
+		$this->vue_plutoto->afficher_vue_commentaires($this->dao_plutoto->getCommentaire($id),$this->dao_plutoto->get_un_plutoto_from_id($id));
+	
+
 	}
 
 	public function afficher_plutoto_video(){
@@ -73,6 +76,10 @@ public function afficher_all_plutoto(){
 			echo ('<iframe width="560" height="315" src="'.$video.'" frameborder="0" allowfullscreen></iframe>');
 			echo ("</br>");
 		}
+	}
+
+	public function afficher_commentaires_plutoto($id){
+		$this->vue_plutoto->afficher_vue_commentaires($this->dao_plutoto->getCommentaire($id),$this->dao_plutoto->get_un_plutoto_from_id($id));
 	}
 
 	public function afficherCommentaire($id){

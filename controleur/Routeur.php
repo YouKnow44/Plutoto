@@ -39,6 +39,13 @@ class Routeur{
 		elseif(isset($_GET['lesTops'])){
 			$this->controleur_plutoto->afficher_top_plutoto();
 		}
+		
+		elseif(isset($_GET["name"]) && isset($_GET["comment"]) && isset($_GET["id"])){
+			$this->controleur_plutoto->ajoutCommentaire($_GET["id"],$_GET["name"],$_GET["comment"]);
+		}
+		elseif(isset($_GET['lesCommentaires'])){
+			$this->controleur_plutoto->afficher_commentaires_plutoto($_GET['id']);
+		}
 
 		/*****************      PARTIE ADMIN       *************/
 				//connexion admin

@@ -144,13 +144,73 @@ class Util_html{
 					<span class="glyphicon glyphicon-chevron-down"></span>
 				</div>
 				</a>
-					<a href="vue/commentaireTest.php?id='.$plutoto->get_id().'">
+					<a href="index.php?lesCommentaires=OK&id='.$plutoto->get_id().'">
 				<div class="col-md-2">
 						<span class="glyphicon glyphicon-comment"></span>
 				</div>
 					</a>
 
 			</div></div></a>';
+	}
+
+	public static function div_commentaires($comments,$plutoto){
+		echo '<div class="jumbotron" style="background:#E6E6E6; margin-top : 70px; margin-bottom: 3px; font-family: lobster; font-style: italic;">
+			<div class="text-center pagination-centered">
+				<div class="page-header">
+<div class="jumbotron" style="background:#E6E6E6; ">
+			<a href=#><div class="row">
+				<div class="col-md-12" style="color: Black; text-align:left ">
+					<p class="lead"><a href="#" title='.$plutoto->get_id().' class="jaime" >J&rsquo;aime</a></p>
+				</div>
+				<div class="col-md-8">
+					<p class="lead">'.$plutoto->get_sentence().'<span class="glyphicon glyphicon-arrow-right"></span></p>
+				</div>
+				<div class="col-md-4">
+					<p class="lead">'.$plutoto->get_name().'</p>
+				</div>
+				<a href=#>
+					<div class="col-md-2">
+						<span class="glyphicon glyphicon-chevron-up"></span>
+					</div>
+				</a>
+				<a href=#>
+					<div class="col-md-2">
+						<span class="glyphicon glyphicon-chevron-down"></span>
+					</div>
+				</a>
+				<a href="index.php?lesCommentaires=OK&id='.$plutoto->get_id().'">
+					<div class="col-md-2">
+					<span class="glyphicon glyphicon-comment"></span>
+					</div>
+				</a>
+			</div></div></a>
+		  			<h1><small>Les commentaires</small></h1>
+				</div>
+			</div>
+			<form action="#" method="GET">
+				Votre nom : <input type="text" name="name" value=""/>
+				</br>
+				Votre commentaire : <input style="lenght:250px" type="text" name="comment" value=""/>
+				</br>
+				<input type="hidden" name="id" value='.$plutoto->get_id().'
+				</br>
+				<button type="submit" value ="">soumettre</button>
+			</form></br>
+			';
+			if($comments != null){
+				echo "<ul>";
+      			foreach ($comments as $comment){
+      			echo "<li>";
+        		echo $comment["name"]." : ";
+        		echo $comment["comment"];
+        		echo "</li>";
+      			}
+      			echo "</ul>";
+    		}
+    		else{
+      			echo "Toujours pas de commentaire !!! ajoutez le votre";
+    		}
+		echo '</div>';
 	}
 
 	public static function div_plutoto_admin($plutoto){
