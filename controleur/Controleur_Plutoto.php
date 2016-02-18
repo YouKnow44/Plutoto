@@ -129,7 +129,9 @@ public function afficher_all_plutoto(){
 	}
 	public function connexion($log,$pass)
 	{
-		return $this->dao_plutoto->verif_password($log,$pass) ;
+		 if ($this->dao_plutoto->verif_password($log,$pass) == true )
+		 return true ;
+		else return false;
 	}
 	
 	public function verif_login_mail($log,$mail)

@@ -7,6 +7,9 @@ class Routeur{
 
 	function __construct(){
 		$this->controleur_plutoto = new Controleur_Plutoto();
+		echo $mdp= crypt('passwd1');
+		echo crypt('passwd1',$mdp);
+
 	}
 
 
@@ -38,12 +41,27 @@ class Routeur{
 		}
 
 		/*****************      PARTIE ADMIN       *************/
+				//connexion admin
+		elseif(isset($_GET['moderation']))
+		{
+			$this->controleur_plutoto->genereVueAuthentification();
+		}
+		elseif(isset($_POST['login']) && isset($_POST['pass'])){
+			if($this->controleur_plutoto->connexion(htmlspecialchars($_POST['login']),htmlspecialchars($_POST['pass'])) != null)
+			{
+				$_SESSION['login']= $_POST['login'];
+				$this->controleur_plutoto->afficher_all_plutoto_admin();	
+			}
+			else{
+				$this->controleur_plutoto->genereVueAuthentification();
+			}
+		}
 
 		//page parametre
-		elseif(isset($_GET['param'])){
+		elseif(isset($_GET['param']) & isset($_SESSION['login']) ){
 			$this->controleur_plutoto->vue_afficher_parametre();
 		}//suppression plutoto
-		elseif(isset($_GET['del']))
+		elseif(isset($_GET['del']) && $_SESSION['login'])
 			{
 			  $i=0;
 			  for($i;$i<=sizeof($_GET['options']);$i++)
@@ -54,7 +72,7 @@ class Routeur{
 			  
 			}
 		//validation plutoto
-		elseif(isset($_GET['validation']))
+		elseif(isset($_GET['validation']) && $_SESSION['login'])
 		{
 			$i=0;
 		  for($i;$i<=sizeof($_GET['options']);$i++)
@@ -63,29 +81,15 @@ class Routeur{
 		  }
 		  $this->controleur_plutoto->vue_afficher_parametre();
 		}
-		elseif(isset($_GET['valid']))
+		elseif(isset($_GET['valid']) && $_SESSION['login'])
 		{
 			$this->controleur_plutoto->vue_afficher_validation();
 		}
-		//connexion admin
-		elseif(isset($_GET['moderation']))
-		{
-			$this->controleur_plutoto->genereVueAuthentification();
-		}
-		elseif(isset($_POST['login']) && isset($_POST['pass'])){
-			if($this->controleur_plutoto->connexion(htmlspecialchars($_POST['login']),htmlspecialchars($_POST['pass'])) == true)
-			{
-				$_SESSION['login']= $_POST['login'];
-				$this->controleur_plutoto->afficher_all_plutoto_admin();	
-			}
-			else{
-				$this->controleur_plutoto->genereVueAuthentification();
-			}
-		}
-		elseif (isset($_GET['relogin'])) {
+
+		elseif (isset($_GET['relogin']) && $_SESSION['login']) {
 			$this->controleur_plutoto->genereVueReinitMotDePasse();
 		}
-		elseif (isset($_POST['loginRecup']) & isset($_POST['mailRecup'])) {
+		elseif (isset($_POST['loginRecup']) & isset($_POST['mailRecup']) && $_SESSION['login']) {
 			if($this->controleur_plutoto->verif_login_mail(htmlspecialchars($_POST['loginRecup']),htmlspecialchars($_POST['mailRecup'])) == true)
 			{
 					$this->controleur_plutoto->envoie_mail($_POST['mailRecup']);
