@@ -262,7 +262,7 @@ echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
     </head>
 
     <body>    
-    <h1>mot de pass oublié</h1>
+    <h1>mot de passe oublié</h1>
     <br/><br/>
     
     <div align="middle">
@@ -291,9 +291,74 @@ echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
       <tr>
         <td> <input type="submit"  align="center"  value="Envoyer"/></td>
       </tr>
+    </table>
+  </form>
+
+    </div>
+    </body>
+    </html>
+
+    <?php
+
+  }
+
+  public function modif_mdp(){
+ ?>
+    <!doctype html>
+    <html>
+    <head>
+   <!-- <script type="text/javascript"> 
+    function checkPass()
+  {
+  var mdpReinit1 = document.getElementById("mdpReinit1").value;
+  var mdpReinit2 = document.getElementById("mdpReinit2").value;
+  var div_comp = document.getElementById("divcomp");
+   
+if(mdpReinit1 == mdpReinit2)
+{
+divcomp.innerHTML = "Correct";
+}
+else
+{
+divcomp.innerHTML = "Erreur !";
+}
+onBlur="checkPass()"
+}</script>-->
+        <meta charset ="UTF-8">
+        <link rel="stylesheet" type="text/css" href="vue/css/authentification.css">
+    </head>
+
+    <body>    
+    <h1>modif mdp</h1>
+    <br/><br/>
+    
+    <div align="middle">
+    <img src="images/background.jpg" style="width: 300px" >
+    </div>
+
+    <h2 align="center"> modif mdp </h2>
+    <br/>
+    <br/> 
+  <form action="index.php"  method="post">
+    <table>
+      
+      <tr>
+        <td> <p> Entrez votre nouveaux mdp </p>   </td>
+        <td><input type="password"  name ="mdpReinit1" /> </td>
+      </tr>
+
+      <tr>
+        <td> <p> Entrez le à nouveau: </p>   </td>
+        <td> <input type="password" name ="mdpReinit2"  /> </td>
+      </tr>
+      <input type="hidden" name="login" value=<?php echo "\"".$_GET['login']."\"";?>/>
+      <input type="hidden" name="mail" value=<?php echo "\"".$_GET['mail']."\"";?>/>
+      <tr>
+        <td> <input type="submit"  align="center"  value="Envoyer"/></td>
+      </tr>
 </table>
 
-    
+    <div id="divcomp"></div>
     </form>
 
     </div>
@@ -308,7 +373,7 @@ echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
 
     <?php
 
-  }
+}
 
   public function vue_afficher_validation()
   {
@@ -344,8 +409,8 @@ echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
           $plutotos = $this->bd->get_all_plutoto_nonValide();
           foreach ($plutotos as $result) {
             echo Util_html::div_plutoto_admin($result);
-            //echo "[".$result->get_id()."]"." ".$result->get_name()." ".$result->get_sentence()."<input type=checkbox name=options[] value=".$result->get_id().">";
-            //echo "</br>";
+            echo "[".$result->get_id()."]"." ".$result->get_name()." ".$result->get_sentence()."<input type=checkbox name=options[] value=".$result->get_id().">";
+            echo "</br>";
 
           }
           echo '<input name="validation" type="submit" value="Valider">';
@@ -362,7 +427,7 @@ echo '  <div class="col-md-6" style="padding-top: 10%; height: 1500px">
   <div class ="col-md-6">
     <div class="jumbotron" style="background:#B6C0B6; margin-top : 70px; margin-bottom: 3px; font-family: lobster; font-style: italic;">
       <div class="page-header">
-        <h1>Validation<small> ajoutés via Facebook</small></h1>
+        <h1>Validation<small> En provenance de Facebook</small></h1>
       </div>
     <div class="row" id="list_plutoto_fb">
       <form action="index.php" method="GET">

@@ -136,9 +136,7 @@ public function afficher_all_plutoto(){
 	}
 	public function connexion($log,$pass)
 	{
-		 if ($this->dao_plutoto->verif_password($log,$pass) == true )
-		 return true ;
-		else return false;
+		 return ($this->dao_plutoto->verif_password($log,$pass) );
 	}
 	
 	public function verif_login_mail($log,$mail)
@@ -146,7 +144,16 @@ public function afficher_all_plutoto(){
 		return $this->dao_plutoto->verif_login_mail($log,$mail) ;
 	}
 
-	public function envoie_mail($mail){
+	public function reinit_mot_de_passe($login,$mail,$mdp)
+	{
+		$this->dao_plutoto->reinit_mot_de_passe($login,$mail,$mdp);
+	}
+
+	/*fonction qui permet de générer un mail automatiquement et de l'envoyer
+$mail adresse du destinataire
+$token et $login paramètre qui composeront l'url qui sera envoyé dans le mail pour reinit le mot de passe du compte
+*/
+	public function envoie_mail($mail, $token, $login){
 if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail)) // On filtre les serveurs qui rencontrent des bogues.
 {
 	$passage_ligne = "\r\n";
@@ -158,7 +165,17 @@ else
 
 
 //=====Déclaration des messages au format texte et au format HTML.
-$message_html = "<html><head></head><body><b>Bonjour</b>, voici un e-mail envoyé automatiquement.</body></html>";
+$message_html = '
+<html>
+<head>
+</head>
+<body>
+<b>Bonjour</b>, voici un e-mail envoyé automatiquement. 
+Cet email a été envoyé suite à une demande de réinitialisation de mot de passe sur le site plutoto. si cette demande n a pas été effectué par vous, veuillez ignorer ce mail
+sinon, cliquer sur le lien qui suit pour le réinitialiser 
+<a href=http://infoweb/~e145271d/Plutoto/index.php?token='.$token.'&login='.$login.'&mail='.$mail.' > http://infoweb/~e145271d/Plutoto/index.php?token='.$token.'&login='.$login.'</a>
+</body>
+</html>';
 //==========
  
 //=====Création de la boundary
@@ -170,7 +187,7 @@ $sujet = "Récupération de mot de passe";
 //=========
  
 //=====Création du header de l'e-mail.
-$header = "From: \"benjaminSeche\"<www-data@infoweb.iut-nantes.univ-nantes.prive >".$passage_ligne;
+$header = "From: \"benjaminSeche\"<www-data@infoweb.iut-nantes.univ-nantes.prive>".$passage_ligne;
 $header.= "Reply-to: \"benjaminSeche\" <benjamin.sechesti2d3@gmail.com>".$passage_ligne;
 $header.= "MIME-Version: 1.0".$passage_ligne;
 $header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
@@ -178,9 +195,6 @@ $header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$bo
  
 //=====Création du message.
 $message = $passage_ligne."--".$boundary.$passage_ligne;
-//=====Ajout du message au format texte.
-$message.= "Content-Type: text/plain; charset=\"ISO-8859-1\"".$passage_ligne;
-$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
 //==========
 $message.= $passage_ligne."--".$boundary.$passage_ligne;
 //=====Ajout du message au format HTML
@@ -197,4 +211,37 @@ mail($mail,$sujet,$message,$header);
 //==========
 	}
 
+	/*
+fonction qui permet de générer un token dans la base de donnée pour un compte donné ($login)
+*/
+	public function genere_token($login)
+	{
+		return $this->dao_plutoto->generer_token($login);
+	}
+
+	/*
+fonction qui permet de récupérer le token de la base de donnée pour un compte donné ($login)
+*/
+	public function get_token($login)
+	{
+		return $this->dao_plutoto->get_token($login);
+	}
+
+	/*
+fonction qui permet de générer la vue de demande de modofication de mot de passe
+*/
+	public function genereVueModifMotDePasse(){
+		$this->vue_admin->modif_mdp();
+	}
+	
+		/*
+fonction qui permet de récuperer dans la base de donnée un mail associé a un login
+*/
+	public function get_mail($login){
+		$this->dao_plutoto->get_mail($login);
+	}
+
+	public function sup_token($log){
+		$this->dao_plutoto->sup_token($log);
+	}
 }

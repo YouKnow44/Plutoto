@@ -306,15 +306,19 @@ public function get_flop_plutoto()
 //methode pour verifier le login et le mot de passe entré
 public function verif_password($login,$pass)
 {
-  return (crypt($pass, "salut") == $this->getMotDePasse($login));
+  $bdMdp = $this->getMotDePasse($login);
+  $encMdp = crypt($pass,$bdMdp);
+  var_dump($bdMdp);
+  var_dump($encMdp);
+  return ( $bdMdp != null && $encMdp == $bdMdp);
 }
 
 public function getMotDePasse($login)  
   {
     try
     {
-      $requete = $this->connexion->prepare("SELECT motDePasse FROM comptes where type= '".$login."';");
-      $requete->execute(array('type' => $login));
+      $requete = $this->connexion->prepare("SELECT motDePasse FROM comptes where type= :type;");
+      $requete->execute(array(':type' => $login));
       $reponse = $requete->fetch();
       $this->deconnexion();
       return $reponse[0];
@@ -324,6 +328,68 @@ public function getMotDePasse($login)
     }
   }
 
+
+
+public function reinit_mot_de_passe($login,$mail,$mdp)
+{
+  try{
+    $sth = $this->connexion->query("UPDATE `comptes` SET `motDePasse`='".$mdp."' WHERE `type` = '".$login."' and `mail` = '".$mail."';");
+  }
+    catch (TableAccesException $e) {
+    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+  }
+ catch(PDOException $e){
+    $exception=new ConnexionException("problème de connection à la base");
+    throw $exception;
+  }
+}
+
+public function generer_token($login){
+
+$char = 'abcdefghijklmnopqrstuvwxyz0123456789';
+$token = str_shuffle($char);
+$token = substr($token, 1, 13);
+try{
+    $sth = $this->connexion->query("UPDATE `comptes` SET `token`= '".$token."' WHERE type = '".$login."';");
+  }
+    catch (TableAccesException $e) {
+    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+  }
+ catch(PDOException $e){
+    $exception=new ConnexionException("problème de connection à la base");
+    throw $exception;
+  }
+  return $token;
+}
+
+public function get_token($login){
+try{
+    $sth = $this->connexion->query("select token from comptes where type='".$login."';");
+    $result = $sth->fetch();
+    return $result['token'];
+  }
+    catch (TableAccesException $e) {
+    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+  }
+ catch(PDOException $e){
+    $exception=new ConnexionException("problème de connection à la base");
+    throw $exception;
+  }
+}
+
+public function sup_token($login){
+try{
+    $sth = $this->connexion->prepare("UPDATE `comptes` SET `token`='' WHERE type='".$login."';");
+    $sth->execute();
+  }
+    catch (TableAccesException $e) {
+    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+  }
+ catch(PDOException $e){
+    $exception=new ConnexionException("problème de connection à la base");
+    throw $exception;
+  }
+}
 
 
 public function verif_login_mail($login,$mail)
@@ -343,12 +409,30 @@ public function verif_login_mail($login,$mail)
   }
 }
 
-public function reinit_mot_de_passe($login,$mail,$mdp)
+public function verif_token($token,$login)
 {
   try{
-    $sth = $this->connexion->query("UPDATE `comptes` SET `motDePasse`='".$mdp."' WHERE `type` = '".$login."' and `mail` = '".$mail."';");
+    $sth = $this->connexion->query("select * from comptes where type='".$login."' and token = '".$token."';");
+    $result = $sth->fetch();
+    
+    return (($result['token'] == $token && isset($result['token'])) && ($result['login'] == $login && isset($result['login']))) ;
   }
-    catch (TableAccesException $e) {
+  catch (TableAccesException $e) {
+    echo 'Exception reçue : ',  $e->getMessage(), "\n";
+  }
+ catch(PDOException $e){
+    $exception=new ConnexionException("problème de connection à la base");
+    throw $exception;
+  }
+}
+public function get_mail($login){
+  try{
+    $sth = $this->connexion->query("select mail from comptes where type='".$login."';");
+    $result = $sth->fetch();
+    
+    return $result['mail'];
+  }
+  catch (TableAccesException $e) {
     echo 'Exception reçue : ',  $e->getMessage(), "\n";
   }
  catch(PDOException $e){
@@ -358,42 +442,6 @@ public function reinit_mot_de_passe($login,$mail,$mdp)
 }
 
 
-public function generate_hash($password, $cost=11){
-        /* To generate the salt, first generate enough random bytes. Because
-         * base64 returns one character for each 6 bits, the we should generate
-         * at least 22*6/8=16.5 bytes, so we generate 17. Then we get the first
-         * 22 base64 characters
-         */
-        $salt=substr(base64_encode(openssl_random_pseudo_bytes(17)),0,22);
-        /* As blowfish takes a salt with the alphabet ./A-Za-z0-9 we have to
-         * replace any '+' in the base64 string with '.'. We don't have to do
-         * anything about the '=', as this only occurs when the b64 string is
-         * padded, which is always after the first 22 characters.
-         */
-        $salt=str_replace("+",".",$salt);
-        /* Next, create a string that will be passed to crypt, containing all
-         * of the settings, separated by dollar signs
-         */
-        $param='$'.implode('$',array(
-                "2y", //select the most secure version of blowfish (>=PHP 5.3.7)
-                str_pad($cost,2,"0",STR_PAD_LEFT), //add the cost in two digits
-                $salt //add the salt
-        ));
-      
-        //now do the actual hashing
-        return crypt($password,$param);
-}
-
-/*
-* Check the password against a hash generated by the generate_hash
-* function.
-*/
-public function validate_pw($password, $hash){
-        /* Regenerating the with an available hash as the options parameter should
-         * produce the same hash if the same password is passed.
-         */
-        return crypt($password, $hash)==$hash;
-}
 
 
 }
