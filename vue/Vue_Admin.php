@@ -438,6 +438,7 @@ onBlur="checkPass()"
   </div>
     
 </div>
+
   <div class="col-md-3 text-center pagination-centered">
 <div class="fb-page" data-href="https://www.facebook.com/Plutoto-596447807049170/" data-width="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="true"></div>
 </div>

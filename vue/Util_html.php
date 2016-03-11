@@ -18,6 +18,7 @@ class Util_html{
 			<link rel=\"stylesheet\" href=\"bootstrap/css/bootstrap.css\">
 			<link rel=\"stylesheet\" href=\"bootstrap/css/bootstrap-theme.css\">
 			<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"  />
+			<script type=\"text/javascript\" src=\"vue/script.js\"></script>
 			<script src=\"bootstrap/js/bootstrap.js\"></script>
 			<link rel=\"stylesheet\" href=\"default.css\">
      		<script type=\"text/javascript\" src=\"jaime.js\"></script>
@@ -50,6 +51,18 @@ class Util_html{
         <li><a href="index.php?Video=OK">Vidéos</a></li>
         <li><a href="index.php?soummettre=OK">Soumettre</a></li>
       </ul>
+
+
+      <!-- Autocomplete pour la recherche du plutoto -->
+        <div class="nav navbar-nav">
+	    	<form method="POST">
+		   		<input type="text" id="input_plutoto" autocomplete="off" onkeyup="autocomplet_plutoto()" value="" ></input><button class="btn btn-default btn-sm" type="button" onClick="go_to_plutoto()">Rechercher ! <span class="glyphicon glyphicon-search"></span></button>
+				<ul class="ul_autocomplet_item" id="ul_autocomplet_plutoto"></ul>
+			</form>
+    	</div>
+    	<!-- /.autocomplete -->
+
+
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contact<span class="caret"></span></a>
@@ -90,6 +103,18 @@ class Util_html{
         <li><a href="index.php?valid=OK">Validation</a></li>
         <li><a href="index.php?deconnex=OK">Déconnexion</a></li>
       </ul>
+
+
+      <!-- Autocomplete pour la recherche du plutoto -->
+        <div class="nav navbar-nav">
+	    	<form method="POST">
+		   		<input type="text" id="input_plutoto" autocomplete="off" onkeyup="autocomplet_plutoto()" value="" ></input><button class="btn btn-default btn-sm" type="button" onClick="go_to_plutoto()">Rechercher ! <span class="glyphicon glyphicon-search"></span></button>
+				<ul class="ul_autocomplet_item" id="ul_autocomplet_plutoto"></ul>
+			</form>
+    	</div>
+    	<!-- /.autocomplete -->
+
+    	
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contact<span class="caret"></span></a>
